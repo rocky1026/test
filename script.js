@@ -1,104 +1,66 @@
-// Calculator script
+const lengthSlider = document.querySelector(".password__length input");
+const options = document.querySelectorAll(".password__option input");
+const copyIcon = document.querySelector(".password__inputbox i");
+const passwordInput = document.querySelector(".password__inputbox input");
+const passIndicator = document.querySelector(".password__indicator");
+const generateBtn = document.querySelector(".password__button");
 
-// Function to calculate age
-const calculateAge = () =>{
-    
-    // Get today's date
-    const today = new Date();
-
-    // Get the input birthdate from the user
-    const inputDate = new Date(document.getElementById("date-input").value);
-
-    // Input validation
-    if (!inputDate || isNaN(inputDate)){
-        alert("Please enter a valid date");
-        return;
-    }
-
-    // Extracting birth details (day,month,year)
-    const birthDetails = {
-        date: inputDate.getDate(),
-        month: inputDate.getMonth() + 1,   // Months are starts from 0 index
-        year: inputDate.getFullYear()
-    };
-
-    // Get current date details
-    const currentYear = today.getFullYear();
-    const currentMonth = today.getMonth() + 1;
-    const currentDate = today.getDate();
-
-    
-    // Check if the birthdate is in the future
-    if(isFutureDate(birthDetails,currentYear,currentMonth,currentDate)){
-        alert("Not Born Yet 😵");
-        displayResult("-","-","-");
-        return;
-    }
-
-    // Calculate age 
-    const {years, months, days} = calculateAgeDetails(
-        birthDetails,
-        currentYear,
-        currentMonth,
-        currentDate
-    );
-
-    // Display the age
-    displayResult(days, months, years);
+const characters = {
+    lowercase: "abcdefghijklmnopqrstuvwxyz",
+    uppercase: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+    numbers: "0123456789",
+    symbols: "!$%&|[](){}:;.,*+-#@<>~"
 };
 
-// Function to check if the birthdate is in the futute
-const isFutureDate = (birthDetails,currentYear,currentMonth,currentDate) =>{
-    return(
-        birthDetails.year > currentYear || 
-            (birthDetails.year === currentYear && 
-                (birthDetails.month > currentMonth || 
-                    (birthDetails.month === currentMonth && 
-                        birthDetails.date > currentDate)))
-    );
-};
+const generatePassword = () => {
+    let randomPassword = "";
+    const passLength = parseInt(lengthSlider.value); // gets length from the slider
 
-// Function to calculate age details (year, months, days)
-const calculateAgeDetails = (
-    birthDetails,
-    currentYear,
-    currentMonth,
-    currentDate
-    ) =>{
-        let years = currentYear - birthDetails.year;
-        let months, days;
+    // Concatenating selected character sets into a single string
+    let selectedChars = "";
+    options.forEach(option => {
+        if (option.checked) {
+            selectedChars += characters[option.id];
+        }
+    });
 
-    if(currentMonth < birthDetails.month){
-        years--;
-        months = 12 - (birthDetails.month - currentMonth);
-    }else{
-        months = currentMonth - birthDetails.month;
+    // Generate random password
+    for (let i = 0; i < passLength; i++) {
+        const randomIndex = Math.floor(Math.random() * selectedChars.length);
+        randomPassword += selectedChars[randomIndex];
     }
 
-    if (currentDate < birthDetails.date){
-        months--;
-        const lastmonth = currentMonth === 1 ? 12 : currentMonth - 1;
-        const daysinLastMonth = getDaysInMonth(lastmonth,currentYear);
-        days = daysinLastMonth - (birthDetails.date - currentDate);
-    }else{
-        days = currentDate - birthDetails.date;
-    }
-    return{years,months,days};
+    // Update the password input field with the generated password
+    passwordInput.value = randomPassword;
+
+    // Update password strength indicator
+    updatePassIndicator();
 };
 
-const getDaysInMonth = (month, year) =>{
-    return new Date(year, month,0).getDate(); //the function creates a new Date object with the specified year and month (month is 0-based), and sets the day to 0. When the getDate() method is called on this date object, it returns the last day of the previous month, effectively giving us the number of days in the specified month
-}
+const updatePassIndicator = () => {
+    passIndicator.id = lengthSlider.value <= 8 ? "weak" :
+        lengthSlider.value <= 16 ? "medium" : "strong";
+};
 
-// function to display the age
-const displayResult = (bdate, bmonth, byear) =>{
-    document.getElementById("years").textContent = byear;
-    document.getElementById("months").textContent = bmonth;
-    document.getElementById("days").textContent = bdate;
-} 
+const updateSlider = () => {
+    document.querySelector(".password__length span").innerHTML = lengthSlider.value;
+    // generatePassword();
+};
 
-// Attach the calculateAge function to the button click event
-document.getElementById("calculate-button").addEventListener("click",calculateAge);
+const copyPassword = () => {
+    navigator.clipboard.writeText(passwordInput.value);
+    copyIcon.style.color = "#b9e0f2";
+    setTimeout(() => {
+        copyIcon.style.color = "#fff";
+    }, 500);
+};
+
+copyIcon.addEventListener("click", copyPassword);
+lengthSlider.addEventListener("input", updateSlider);
+generateBtn.addEventListener("click", generatePassword);
+
+// Initial generation of password and update of password strength indicator
+updateSlider();
 
 // Copyright
 const copyrightYear = new Date().getFullYear();
