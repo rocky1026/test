@@ -66,6 +66,8 @@ h2{
     color: #0000;
     -webkit-background-clip: text;
     font-weight: 700 !important;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
 }
 
 .range-form {
@@ -92,12 +94,6 @@ h2{
     border-radius: 50%;
     background: var(--second-color);
     }
-}
-
-.container h2{
-    font-weight: 200;
-    font-size: 2.5rem;
-    margin-bottom: 20px;
 }
 
 .password__inputbox {
@@ -276,10 +272,10 @@ h2{
 }
 
 .password__button:active span::before, .password__button:focus span::before {
-    animation: chitchat linear both var(--btn-animation-duration);
+    animation: matrix linear both var(--btn-animation-duration);
 }
 
-@keyframes chitchat {
+@keyframes matrix {
     0% {
         content: "#";
     }

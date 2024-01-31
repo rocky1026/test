@@ -64,3 +64,7 @@ generateBtn.addEventListener("click", generatePassword);
 
 // Initial generation of password and update of password strength indicator
 updateSlider();
+
+// Disclaimer
+alert("Disclaimer:\n\n\tThis password generator is make for my learning purposes only.\n\tWhile it can generate strong passwords,\n\tit's important to remember that no password can guarantee complete security.\n\tPlease use generated passwords responsibly and consider additional security measures for sensitive accounts.🔒💡\n\n\t\t\t\tMade with ❤️ by @Rocky");
+
