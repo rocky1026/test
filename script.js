@@ -37,16 +37,19 @@ const generatePassword = () => {
     updatePassIndicator();
 };
 
+// Password Indicator function
 const updatePassIndicator = () => {
     passIndicator.id = lengthSlider.value <= 8 ? "weak" :
         lengthSlider.value <= 16 ? "medium" : "strong";
 };
 
+// Password Slider
 const updateSlider = () => {
     document.querySelector(".password__length span").innerHTML = lengthSlider.value;
     // generatePassword();
 };
 
+// Copy password
 const copyPassword = () => {
     navigator.clipboard.writeText(passwordInput.value);
     copyIcon.style.color = "#b9e0f2";
@@ -61,7 +64,3 @@ generateBtn.addEventListener("click", generatePassword);
 
 // Initial generation of password and update of password strength indicator
 updateSlider();
-
-// Copyright
-const copyrightYear = new Date().getFullYear();
-document.getElementById("copyright").textContent = copyrightYear;

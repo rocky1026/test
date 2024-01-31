@@ -19,12 +19,16 @@
     <div class="container text-center position-absolute top-50 start-50 translate-middle">
         <h2>Password Generator</h2>
 
+    <!-- Password inputbox -->
         <div class="password__inputbox">
             <input type="text" disabled>
             <i class="bi bi-copy"></i>
         </div>
 
+    <!-- Password indicator  -->
         <div class="password__indicator"></div>
+    
+    <!-- Password range -->
         <div class="password__length">
             <div class="password__details">
                 <div class="password__title ">Password Length</div>
@@ -33,6 +37,7 @@
             <input class="form-range range-slider" type="range" min="1" max="20" value="5" step="1">
         </div>
 
+    <!-- Password Settings -->
         <div class="password__settings">
             <div class="password__title">Password Settings</div>
             <ul class="password__options form-check p-2 mx-auto ">
@@ -59,13 +64,6 @@
         <button class="password__button"><span>Generate Password</span></button>
     </div>
 
-    <!-- Footer -->
-    <div class="password__footer">
-        &#169;
-        <span id="copyright"></span>
-        Made with ❤️ by @Rocky
-    </div>
-    <!-- Javascript files -->
     <script src="script.js"></script>
 </body>
 </html>
