@@ -359,7 +359,7 @@ h2{
     --secondary-color: #fff;
     --primary-hover-color: #4096ff;
     /* checkbox */
-    --checkbox-diameter: 12px;
+    --checkbox-diameter: 14.5px;
     --checkbox-border-radius: 0px;
     --checkbox-border-color: var(--white-color);
     --checkbox-border-width: 1px;
@@ -455,7 +455,7 @@ box-sizing: border-box;
     opacity: 1;
 }
 
-.calc__footer{
+.password__footer{
     color: #eeeeff;
     text-align: center;
     position: fixed;
